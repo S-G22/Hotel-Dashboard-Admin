@@ -1,0 +1,133 @@
+﻿
+@{
+    ViewBag.Title = "Customers";
+    Layout = "~/Views/Shared/Master.cshtml";
+}
+
+<link href="~/Content/customer.css" rel="stylesheet" />
+<main id="main" class="main" ng-controller="CustomerController">
+
+    <div class="container">
+        <div class="card ">
+            <div class="card-body">
+                <h5 class="text-center mb-4"><u><strong> Enter Guest Details  </strong></u></h5>
+                <form class="form-row col needs-validation" id="myForm" name="custForm" novalidate>
+                    <div class="row justify-content-between text-left">
+
+                        <div class="form-group col-sm-6 col-lg-6 col-md-6 flex-column d-flex">
+                            <label class="form-label px-3" for="name">Guest name<span class="text-danger"> *</span></label>
+                            <input class=" form-control" type="text" id="name" name="custName" placeholder="" ng-model="name" required autofocus>
+                            <span ng-if="(custForm.custName.$dirty || isSubmitted) && custForm.custName.$error.required">@*Name is Required*@</span>
+                            <div class="text-danger invalid-feedback">Name is Required</div>
+
+                        </div>
+
+                        <div class="form-group col-sm-6 flex-column d-flex">
+                            <label class="form-label px-3">Email<span class="text-danger"> *</span></label>
+                            <input class="form-control" type="text" id="email" name="custEmail" placeholder="" ng-model="email" ng-pattern="emailId" required autofocus>
+                            <span ng-if="(custForm.custEmail.$dirty || isSubmitted) && custForm.custEmail.$error.required && custForm.custEmail.$error.pattern" class="text-danger invalid-feedback">Email is Required</span>
+                            <span ng-show="custForm.custEmail.$error.pattern" class="text-danger ">Invalid Email ID</span>
+                            <div class="text-danger invalid-feedback">Email is Required</div>
+                        </div>
+
+                    </div>
+
+                    <div class="row justify-content-between">
+                        <div class="form-group col-sm-12s flex-column d-flex">
+                            <label class="form-control-label px-3">Address Detail</label>
+                            <input class="" type="text" id="address" name="Address" placeholder="" ng-model="address">
+                        </div>
+                    </div>
+                     
+                    <div class="row justify-content-between text-left">
+                        <div class="form-group col-sm-6 flex-column d-flex">
+                            <label class="form-label px-3">State<span class="text-danger"> *</span></label>
+                            <input class="form-control" type="text" id="state" name="CustState" placeholder="" ng-model="state" required autofocus>
+                            <span ng-if="(custForm.CustState.$dirty || isSubmitted) && custForm.CustState.$error.required" class="text-danger invalid-feedback">State is required</span>
+                            <div class="text-danger invalid-feedback">State is Required</div>
+                        </div>
+                        <div class="form-group col-sm-6 flex-column d-flex">
+                            <label class="form-label px-3">Aadhaar Number<span class="text-danger"> *</span></label>
+                            <input class="form-control" type="text" maxlength="12"  id="aadhaar" name="CustAadhaar" placeholder="" ng-model="aadhaar" ng-pattern="aadhaarPattern" required autofocus>
+                            <span ng-if="(custForm.CustAadhaar.$dirty || isSubmitted) && custForm.CustAadhaar.$error.required" class="text-danger invalid-feedback">Aadhaar Number is Required</span>
+                            <span ng-show="custForm.CustAadhaar.$error.pattern" class="text-danger">Invalid aadhaar number!</span>
+                            <div class="text-danger invalid-feedback">Aadhaar is Required</div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-between text-left">
+                        <div class="form-group col-sm-6 flex-column d-flex">
+                            <label class="form-label px-3">Phone number<span class="text-danger"> *</span></label>
+                            <input class="form-control" maxlength="10" type="text" id="mob" name="CustMob" placeholder="" ng-model="phoneNo" ng-pattern="mobileNumberPattern" required autofocus>
+                            <span ng-if="(custForm.CustMob.$dirty || isSubmitted) && custForm.CustMob.$error.required" class="text-danger invalid-feedback">Phone Number is Required</span>
+                            <span ng-show="custForm.CustMob.$error.pattern" class="text-danger">Mobile No. is not valid</span>
+                            <div class="text-danger invalid-feedback">Mobile No. is Required</div>
+                        </div>
+                        <div class="form-group col-sm-6 flex-column d-flex">
+                            <label class="form-control-label px-3">Employee Code<span class="text-danger"> *</span></label>
+                            <input class="" type="text" id="empcode" name="empcode" placeholder="" ng-model="empcode">
+                        </div>
+                    </div>
+                        <div class="form-group d-flex justify-content-center ">
+                            <button type="submit" class="btn-block btn btn-primary" ng-click="Submit()">Submit</button>
+                        </div>
+                   
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="table-responsive">
+
+        <table class="table table-bordered table-responsive table-striped">
+            <thead>
+                <tr class="table-dark">
+                    <th scope="col">SlNo.</th>
+                    <th scope="col">Employee Name</th>
+                    <th scope="col">GuestName</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">AddressDetail</th>
+                    <th scope="col">StateName</th>
+                    <th scope="col">AadhaarNumber</th>
+                    <th scope="col">MobileNumber</th>
+                </tr>
+            </thead>
+            <tbody class="table-light ">
+                <tr dir-paginate="x in AllGuestList | itemsPerPage: pageSize" current-page="currentPage">
+
+                    <td>{{$index + 1}}</td>
+                    <td>{{x.EMPLOYEENAME}}</td>
+                    <td>{{x.NAME}}</td>
+                    <td>{{x.EMAIL}}</td>
+                    <td>{{x.ADDRESSDETAIL}}</td>
+                    <td>{{x.STATENAME}}</td>
+                    <td>{{x.AADHAARNUMBER}}</td>
+                    <td>{{x.MOBILENUMBER}}</td>
+
+                </tr>
+            </tbody>
+        </table>
+        <br />
+        <dir-pagination-controls boundry-links="true" template-url="~/Scripts/DirPagination/dirPagination.tpl.html"></dir-pagination-controls>
+    </div>
+      @*  <p>AllStudentList => {{AllGuestList}}</p>*@
+
+</main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,120 @@
+﻿
+@{
+    ViewBag.Title = "AdditionalService";
+    Layout = "~/Views/Shared/Master.cshtml";
+}
+
+
+<link href="~/Content/customer.css" rel="stylesheet" />
+<main id="main" class="main" ng-controller="AdditonalServiceController">
+    <!--<div class="container">
+        <div class="card d-flex align-items-center justify-content-center">
+            <h5><strong><u>Additional Services</u></strong></h5>
+            <form class="w-100 d-flex flex-column justify-content-center align-items-center">
+                <div class="form-group dropdown flex-column d-flex">
+
+                    <br />
+
+                    <div class="form-group col-sm-6 col-lg-10 col-md-6 flex-column d-flex">
+                        <label class="form-control-label"><strong>Booking Guest ID</strong></label>
+                        <input class="border border-dark" type="number" id="BGID" placeholder="Enter Booking Guest ID" ng-model="bgID">
+                    </div>
+                    <div class="form-group col-sm-6 col-lg-8 col-md-6 flex-column d-flex">
+                        <label class="form-control-label"><strong>Select Services</strong></label>
+
+                        <select class="form-control" ng-model="selectedService" ng-options="s.SERVICEID as s.SERVICENAME for s in AllServices">
+                            <option value="">Select</option>
+                        </select>
+                    </div>-->
+    @*<div class="row justify-content-between">*@
+    <!--<div class="form-group col-sm-6 col-lg-1 col-md-6 ">
+        <label class="form-control-label"><strong>Quantity</strong></label>
+        <input class="border border-dark" type="number" id="address" name="Address" placeholder="" ng-model="quantity">
+    </div>-->
+    @*</div>*@
+
+    <!--<br />
+                    <div class="form-group flex-column d-flex col-lg-12">
+                        <button type="button" class="btn-block btn btn-info" ng-click="Submit()"><strong>Submit</strong></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>-->
+    <h3 class="mt-2"><strong><u>Edit Services</u></strong></h3>
+    <div class="table-responsive mt-4">
+        <table class="table table-bordered table-responsive">
+            <thead>
+                <tr class="table-dark">
+                    <th scope="col">SlNo.</th>
+                    <th scope="col">Guest Name</th>
+                    <th scope="col">Services</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+
+            <tbody class="table-light">
+                <tr ng-repeat="x in hotelServiceList">
+                    <td>{{$index + 1}}</td>
+                    <td>{{x.gName}}</td>
+                    <td>{{x.sName}}</td>
+                    <td>{{x.sQt}}</td>
+                    <td><button type="button" class="btn btn-sm btn-primary" ng-click="ediT(x)"><i class="bi bi-pencil-square"></i></button></td>
+                    <td><button type="button" class="btn btn-sm btn-danger" ng-click="delete(x)"><i class="bi bi-trash3-fill"></i></button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <!-- updateModal -->
+    <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Update</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <label> Booking Guest ID :  </label>
+                    <input type="text" class="form-control" ng-model="updatedAdditionalBookingDetailsID" placeholder="" readonly/>
+                    <label>Service Name :</label>
+                    <select class="form-control" ng-model="updatedServiceID" ng-options="s.SERVICEID as s.SERVICENAME for s in AllServices">
+                        <option value="">Select</option>
+                    </select>
+                  @*  <input type="text" class="form-control" ng-model="updatedServicesName" placeholder="" />*@
+                    <label> Quantity : </label>
+                    <input type="number" class="form-control" ng-model="updatedQuantity" placeholder="" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal" ng-click="Update()">Update</button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    @*DeleteModal*@
+    <div class="modal" id="deleteModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p>Are u sure u want to delete this record?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal" ng-click="Delete()">Delete</button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</main>
+ 

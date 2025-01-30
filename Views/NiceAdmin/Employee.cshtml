@@ -1,0 +1,190 @@
+﻿
+@{
+    ViewBag.Title = "Employee";
+    Layout = "~/Views/Shared/Master.cshtml";
+}
+
+
+<link href="~/Content/customer.css" rel="stylesheet" />
+<main id="main" class="main" ng-controller="EmployeeController">
+
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="text-center mb-4"><strong><u>EMPLOYEE LIST</u></strong></h5>
+                <form class="form-row col needs-validation" name="employeeForm" id="employeeForm" novalidate>
+                    <div class="row justify-content-between">
+                        <div class="form-group col-sm-6 col-lg-6 col-md-6">
+                            <label class="form-label px-3" for="text">Name<span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="name" name="empName" placeholder="" ng-model="name" required autofocus>
+                            <span ng-if="(employeeForm.empName.$dirty || isSubmitted) && employeeForm.empName.$error.required" class="text-danger invalid-feedback">Name is Required</span>
+
+                        </div>
+
+                        <div class="form-group col-md-6 col-lg-6 col-sm-6">
+                            <label class="form-label px-3">Email<span class="text-danger">*</span></label>
+                            <input type="email" class="form-control" id="email" name="empEmail" placeholder="" ng-model="email" ng-pattern="emailId" required autofocus>
+                            <span ng-if="(employeeForm.empEmail.$dirty || isSubmitted) && employeeForm.empEmail.$error.required" class="text-danger invalid-feedback">Email is Required</span>
+                            <span ng-show="employeeForm.empEmail.$error.pattern" class="text-danger">Invalid Email ID</span>
+                            @*<div class="text-danger ">Email is Required</div>*@
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-between">
+
+                        <div class="form-group col-md-6 col-lg-6 col-sm-6">
+                            <label class="form-label px-3" for="inputAddress">Aadhaar Number<span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" maxlength="12" id="aadhaar" name="empAadhaar" placeholder="" ng-model="aadhaar" ng-pattern="aadhaarPattern" required autofocus>
+                            <span ng-if="(employeeForm.empAadhaar.$dirty || isSubmitted) && employeeForm.empAadhaar.$error.required" class="text-danger invalid-feedback">Aadhaar Number is Required</span>
+                            <span ng-show="employeeForm.empAadhaar.$error.pattern" class="text-danger">Invalid Aadhaar ID</span>
+                            @*<div class="text-danger ">Aadhar No. is Required</div>*@
+                        </div>
+
+                        <div class="form-group col-md-6 col-lg-6 col-sm-6">
+                            <label class="form-label px-3" for="inputCity">Mobile Number<span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" maxlength="10" id="mobile" name="empMobile" ng-model="mobile" ng-pattern="mobileNumberPattern" required autofocus>
+                            <span ng-if="(employeeForm.empMobile.$dirty || isSubmitted) && employeeForm.empMobile.$error.required" class="text-danger invalid-feedback">Mobile Number is Required</span>
+                            <span ng-show="employeeForm.empMobile.$error.pattern" class="text-danger">Invalid Mobile No.</span>
+                            @* <div class="text-danger ">Mobile No. is Required</div>*@
+                        </div>
+
+                    </div>
+
+                    <div class="row justify-content-between">
+
+                        <div class="form-group col-md-6 col-lg-6 col-sm-6">
+                            <label for="inputAddress2 form-label px-3">Job Role</label>
+                            <input type="text" class="form-control" id="jobRole" name="jobRole" placeholder="" ng-model="jobRole" required autofocus>
+                        </div>
+
+                        <div class="form-group col-md-6 col-lg-6 col-sm-6">
+                            <label class="form-label px-3" for="inputCity">Passwords<span class="text-danger">*</span></label>
+                            <input type="password" class="form-control" name="empPassword" ng-model="passwords" ng-pattern="passwordPattern" required autofocus>
+                            <span ng-if="(employeeForm.empPassword.$dirty || isSubmitted) && employeeForm.empPassword.$error.required" class="text-danger invalid-feedback">Password is Required</span>
+                            <span ng-show="employeeForm.empPassword.$error.pattern" class="text-danger">Password must contain 8 characters, at least one letter and one number</span>
+                            @* <div class="text-danger ">Password is Required</div>*@
+                        </div>
+                    </div>
+
+                        <div class="form-group d-flex justify-content-center">
+                            <button type="button" class="btn btn-info" ng-click="submit()">Submit</button>
+                        </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive mt-5">
+        <table class="table table-bordered table-responsive table-striped">
+            <thead>
+                <tr class="table-dark">
+                    <th scope="col">SlNo.</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Aadhaar Number</th>
+                    <th scope="col">Job Role</th>
+                    <th scope="col">Mobile Number</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+            <tbody class="table-light">
+                <tr dir-paginate="x in AllEmployeeList | itemsPerPage: pageSize" current-page="currentPage">
+                    <td>{{$index + 1}}</td>
+                    <td>{{x.EMPLOYEENAME}}</td>
+                    <td>{{x.EMAIL}}</td>
+                    <td>{{x.AADHAARNUM}}</td>
+                    <td>{{x.JOBROLE}}</td>
+                    <td>{{x.MOBILE}}</td>
+                    <td> <button type="button" class="btn btn-sm btn-primary" ng-click="Edit(x)"><i class="bi bi-pencil-square"></i></button></td>
+                    <td> <button type="button" class="btn btn-sm btn-danger" ng-click="deleteModal(x)"><i class="bi bi-trash"></i></button></td>
+                </tr>
+            </tbody>
+        </table>
+        <br/>
+        <dir-pagination-controls boundry-links="true" template-url="~/Scripts/DirPagination/dirPagination.tpl.html"></dir-pagination-controls>
+    </div>
+
+
+    @*    <div class="table-responsive">
+            <table class="table table-bordered table-responsive table-striped">
+                <thead>
+                    <tr class="table-dark">
+                        <th scope="col">SlNo.</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Aadhaar Number</th>
+                        <th scope="col">Job Role</th>
+                        <th scope="col">Mobile Number</th>
+                        <th scope="col">Edit</th>
+                        <th scope="col">Delete</th>
+                    </tr>
+                </thead>
+                <tbody class="table-info">
+                    <tr ng-repeat="x in AllEmployeeList">
+                        <td>{{$index + 1}}</td>
+                        <td>{{x.EMPLOYEENAME}}</td>
+                        <td>{{x.EMAIL}}</td>
+                        <td>{{x.AADHAARNUM}}</td>
+                        <td>{{x.JOBROLE}}</td>
+                        <td>{{x.MOBILE}}</td>
+                        <td> <button type="button" class="btn btn-sm btn-primary" ng-click="Edit(x)">Edit</button></td>
+                        <td> <button type="button" class="btn btn-sm btn-danger" ng-click="deleteModal(x)">Delete</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>*@
+
+
+    <!-- updateModal -->
+    <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Update</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <label> Name :  </label>
+                    <input type="text" class="form-control" ng-model="updatedEmployeeName" placeholder="" />
+                    <label>Email :</label>
+                    <input type="text" class="form-control" ng-model="updatedEmail" placeholder="" />
+                    <label>Aadhaar No. : </label>
+                    <input type="number" class="form-control" ng-model="updatedAadhaar" placeholder="" />
+                    <label> Job Role : </label>
+                    <input type="text" class="form-control" ng-model="updatedJobRole" placeholder="" />
+                    <label>Mobile No. : </label>
+                    <input type="number" class="form-control" ng-model="updatedMobile" placeholder="" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal" ng-click="Update()">Update</button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    @*DeleteModal*@
+    <div class="modal" id="deleteModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p>Are u sure u want to delete this record?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal" ng-click="Delete()">Delete</button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</main>
+

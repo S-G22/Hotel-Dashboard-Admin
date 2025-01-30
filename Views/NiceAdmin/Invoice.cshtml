@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewBag.Title = "Invoice";
+    Layout = "~/Views/Shared/Master.cshtml";
+}
+
+<link href="~/Content/customer.css" rel="stylesheet" />
+
+<main id="main" class="main" ng-controller="">
+    <div class="container">
+        <div class="card card-bordered">
+            <div class="card-inner">
+                @* <div class="table-responsive">*@
+                <h5 class="text-center mb-4"><u><strong> Invoices  </strong></u></h5>
+                <table class="table table-bordered table-responsive table-striped">
+                    <thead>
+                        <tr class="" style="background-color: #ECF2FF;">
+                            <th scope="col">SlNo.</th>
+                            <th scope="col">Booking Code</th>
+                            <th scope="col">Invoice Number</th>
+                            <th scope="col">Invoice Date</th>
+                            <th scope="col">Total Amount</th>
+                            <th scope="col">Discount</th>
+                            <th scope="col">Net Amount</th>
+                            <th scope="col">Invoice Detail</th>    
+                        </tr>
+                    </thead>
+
+                    <tbody class="" style="background-color:white;">
+                        @*      <tr ng-repeat="x in dataManageBooking">
+            <td>{{$index + 1}}</td>
+            <td>{{x.bookingCODE}}</td>
+            <td>{{x.guestNAME}}</td>
+            <td>{{x.roomNUMBER}}</td>
+            <td>{{x.serviceNAME}}</td>
+            <td>{{x.serviceQuantity}}</td>
+            <td><button id="viewModal" type="button" class="btn btn-sm border-0" style="background-color: #50C4ED; color:black;" ng-click="invoiceDetail()"><i class="bi bi-eye"></i></button></td>
+
+        </tr>*@
+                    </tbody>
+                </table>
+                @* <p>{{dataManageBooking}}</p>*@
+                @*   </div>*@
+            </div>
+        </div>
+    </div>
+
+</main>

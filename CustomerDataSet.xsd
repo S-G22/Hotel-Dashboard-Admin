@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="CustomerDataSet" targetNamespace="http://tempuri.org/CustomerDataSet.xsd" xmlns:mstns="http://tempuri.org/CustomerDataSet.xsd" xmlns="http://tempuri.org/CustomerDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="CustomerDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="CustomerDataSet" msprop:Generator_UserDSName="CustomerDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="CustomerDataTable" msprop:Generator_TableClassName="CustomerDataTableDataTable" msprop:Generator_TableVarName="tableCustomerDataTable" msprop:Generator_TablePropName="CustomerDataTable" msprop:Generator_RowDeletingName="CustomerDataTableRowDeleting" msprop:Generator_RowChangingName="CustomerDataTableRowChanging" msprop:Generator_RowEvHandlerName="CustomerDataTableRowChangeEventHandler" msprop:Generator_RowDeletedName="CustomerDataTableRowDeleted" msprop:Generator_UserTableName="CustomerDataTable" msprop:Generator_RowChangedName="CustomerDataTableRowChanged" msprop:Generator_RowEvArgName="CustomerDataTableRowChangeEvent" msprop:Generator_RowClassName="CustomerDataTableRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="BookingCode" msprop:Generator_ColumnVarNameInTable="columnBookingCode" msprop:Generator_ColumnPropNameInRow="BookingCode" msprop:Generator_ColumnPropNameInTable="BookingCodeColumn" msprop:Generator_UserColumnName="BookingCode" type="xs:string" minOccurs="0" />
+              <xs:element name="GuestName" msprop:Generator_ColumnVarNameInTable="columnGuestName" msprop:Generator_ColumnPropNameInRow="GuestName" msprop:Generator_ColumnPropNameInTable="GuestNameColumn" msprop:Generator_UserColumnName="GuestName" type="xs:string" minOccurs="0" />
+              <xs:element name="MobileNo" msprop:Generator_ColumnVarNameInTable="columnMobileNo" msprop:Generator_ColumnPropNameInRow="MobileNo" msprop:Generator_ColumnPropNameInTable="MobileNoColumn" msprop:Generator_UserColumnName="MobileNo" type="xs:string" minOccurs="0" />
+              <xs:element name="CheckInDate" msprop:Generator_ColumnVarNameInTable="columnCheckInDate" msprop:Generator_ColumnPropNameInRow="CheckInDate" msprop:Generator_ColumnPropNameInTable="CheckInDateColumn" msprop:Generator_UserColumnName="CheckInDate" type="xs:string" minOccurs="0" />
+              <xs:element name="CheckoutDate" msprop:Generator_ColumnVarNameInTable="columnCheckoutDate" msprop:Generator_ColumnPropNameInRow="CheckoutDate" msprop:Generator_ColumnPropNameInTable="CheckoutDateColumn" msprop:Generator_UserColumnName="CheckoutDate" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

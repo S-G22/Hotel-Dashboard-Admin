@@ -1,0 +1,124 @@
+﻿
+@{
+    ViewBag.Title = "ServiceList";
+    Layout = "~/Views/Shared/Master.cshtml";
+}
+
+
+
+<link href="~/Content/customer.css" rel="stylesheet" />
+<main id="main" class="main" ng-controller="ServiceListController">
+    <div class="container ">
+        <div class="card d-flex align-items-center justify-content-center">
+            <h5 class="text-left mb4"><strong><u>ENTER SERVICES</u></strong></h5>
+            @*   <div class="card-body">*@
+            <form class="w-100 d-flex flex-column justify-content-center align-items-center ">
+                @*<div class="row justify-content-between text-left w-500">*@
+
+                <div class="form-group col-sm-6 col-lg-6 col-md-6 flex-column d-flex">
+                    <label class="form-control-label px-3"><strong>Service Name</strong></label>
+                    <input class="border border-dark" type="text" id="name" ng-model="sName">
+                </div>
+
+                @*</div>*@
+                @* <div class="row justify-content-between text-left">*@
+
+                <div class="form-group col-sm-6 col-lg-6 col-md-6 flex-column d-flex">
+                    <label class="form-control-label px-3"><strong>Description</strong></label>
+                    <input class="border border-dark" type="text" id="description" ng-model="description">
+                </div>
+
+                @*  </div>*@
+
+                @*  <div class="row justify-content-between text-left">*@
+
+                <div class="form-group col-sm-6 col-lg-6 col-md-6 flex-column d-flex">
+                    <label class="form-control-label px-3"><strong>Price</strong></label>
+                    <input class="border border-dark" type="number" id="price" ng-model="price">
+                </div>
+                @*</div>*@
+
+                <br />
+                @*<div class="row justify-content-end">*@
+                <div class="form-group flex-column d-flex col-lg-6">
+                    <button type="button" class="btn-block btn btn-info border border-primary" ng-click="Submit()"><strong>Submit</strong></button>
+                </div>
+                @*   </div>*@
+
+            </form>
+            @* </div>*@
+        </div>
+    </div>
+
+    <div class="table-responsive">
+
+        <div class="container">
+            <table class="table table-bordered table-responsive table-striped ">
+                <thead>
+                    <tr class="table-dark">
+                        <th scope="col"><bold>SlNo</bold></th>
+                        <th scope="col">Service Name</th>
+                        <th scope="col">Descriptions</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Edit</th>
+                        <th scope="col">Delete</th>
+                    </tr>
+                </thead>
+
+                <tbody class="table-light">
+                    <tr ng-repeat="x in AllServiceList">
+                        <td>{{$index + 1}}</td>
+                        <td>{{x.SERVICENAME}}</td>
+                        <td>{{x.DESCRIPTIONS}}</td>
+                        <td>{{x.PRICE}}</td>
+                        <td><button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#updateModal" ng-click="edit(x)"><i class="bi bi-pencil-square"></i></button></td>
+                        <td><button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" ng-click="deleteModal(x)"><i class="bi bi-trash"></i></button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+    </div>
+
+    <!-- updateModal -->
+    <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Update</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <label> Service Name :  </label>
+                    <input type="text" class="form-control" ng-model="updatedServicename" placeholder="" />
+                    <label>Description :</label>
+                    <input type="text" class="form-control" ng-model="updatedDescription" placeholder="" />
+                    <label>Price : </label>
+                    <input type="number" class="form-control" ng-model="updatedPrices" placeholder="" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal" ng-click="Update()">Update</button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    @*DeleteModal*@
+    <div class="modal" id="deleteModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p>Are u sure u want to delete this record?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal" ng-click="Delete()">Delete</button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

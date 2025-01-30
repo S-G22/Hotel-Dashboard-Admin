@@ -1,0 +1,142 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html lang="en" ng-app="App">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            height: 100vh;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /*background-image: url('../../content/assets/img/bg.jpg');*/
+            background-image: url('../../content/assets/img/imgpic.jpg');
+            /*  background-image: url('../../content/assets/img/bg (2).jpg');*/
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 60px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        h2 {
+            text-align: center;
+            color: black;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: aliceblue;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        form label {
+            color: black;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .login-button {
+            margin-top: 20px;
+            max-width: 150px;
+            padding: 5px 10px;
+            font-size: 1.1rem;
+            background-color: honeydew;
+        }
+
+        .button4 {
+            border-radius: 12px;
+        }
+
+        .login-form {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .form-group {
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+
+    <script src="~/Angular/Module.js"></script>
+    <script src="~/Scripts/DirPagination/bs_pagination.min.js"></script>
+    <script src="~/Angular/Service.js"></script>
+    <script src="~/Scripts/DirPagination/DataFactory.js"></script>
+    <script src="~/Scripts/DirPagination/dirPagination.js"></script>
+    <script src="~/Angular/Controller/LoginController.js"></script>
+</head>
+
+<body ng-controller="SystemLoginController">
+    <div class="fullDiv" ng-if="dataLoading">
+        <div class="processDiv">
+            <i class="icon-spinner2 spinner" style="font-size:6rem;color:#178076"></i>
+        </div>
+    </div>
+    <div id="myModal" class="modal is-hidden is-visuallyHidden" ng-if="dataLoading"></div>
+
+
+    <div class="card ">
+        <div class="card-body">
+            <div class="container">
+                <h2> <u>Sign-In</u></h2>
+
+                <form name="formLogin" class="login-form">
+                   <strong><label for="username">Username:</label> </strong> 
+                    <input type="text" id="username" ng-model="Email" name="username" required>
+                    <strong><label for="password">Password:</label></strong>
+                    <input type="password" id="password" ng-model="Passwords" name="password" required>
+                   @* <p>abc => {{abc}}</p>*@
+                    @*    <input type="submit" value="Login">*@
+                <div class="form-group">
+                    <button class="login-button btn-lg button4" type="submit" ng-click="Submit()" value="Login" ng-disabled="loginDisabled">Login</button>
+                </div>
+                   
+                </form>
+            </div>
+        </div>
+    </div>
+
+    
+
+</body>
+</html>
+
+
+
+

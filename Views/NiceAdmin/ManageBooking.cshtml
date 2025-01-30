@@ -1,0 +1,170 @@
+﻿
+@{
+    ViewBag.Title = "ManageBooking";
+    Layout = "~/Views/Shared/Master.cshtml";
+}
+<script src="~/Angular/Controller/ManageBooking.js"></script>
+<link href="~/Content/customer.css" rel="stylesheet" />
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/Content/Payment.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="tailwindcss-colors.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Payment Page</title>
+</head>
+
+
+
+<main id="main" class="main" ng-controller="ManageBooking">
+    <div class="container">
+        <div class="card card-bordered">
+            <div class="card-inner">
+                @* <div class="table-responsive">*@
+                <h5 class="text-center mb-4"><u><strong> Manage Your Booking  </strong></u></h5>
+                <table class="table table-bordered table-responsive table-striped">
+                    <thead>
+                        <tr class="" style="background-color: #ECF2FF;">
+                            <th scope="col">SlNo.</th>
+                            <th scope="col">Booking Code</th>
+                            <th scope="col">GuestName</th>
+                            <th scope="col">Room No.</th>
+                            <th scope="col">Service Name</th>
+                            <th scope="col">Service Quantity</th>
+                          @*  <th scope="col">Payment</th>*@
+                        </tr>
+                    </thead>
+
+                    <tbody class="" style="background-color:white;">
+                        <tr ng-repeat="x in AllPaymentLists">
+                            <td>{{$index + 1}}</td>
+                            <td>{{x.bookingCODE}}</td>
+                            <td>{{x.guestNAME}}</td>
+                            <td>{{x.roomNUMBER}}</td>
+                            <td>{{x.serviceNAME == undefined ? '--' : x.serviceNAME }}</td>
+                            <td>{{x.serviceQuantity == undefined ? '--' : x.serviceQuantity}}</td>
+                            @*<td><button id="viewModal" type="button" class="btn btn-sm border-0" style="background-color: #50C4ED; color:black;" data-bs-toggle="modal" data-bs-target="#PaymentModal" ng-click="PaymentModal()">Payment</button></td>*@
+
+                        </tr>
+                    </tbody>
+                </table>
+                @*   <p>{{dataManageBooking}}</p>*@
+                @*   </div>*@
+            <div class="form-group d-flex justify-content-center">
+                <button id="viewModal" type="button" class="btn btn-sm border-0" style="background-color: #50C4ED; color:black;" data-bs-toggle="modal" data-bs-target="#PaymentModal" ng-click="PaymentModal()">Payment</button>
+            </div>
+               
+            </div>
+        </div>
+    </div>
+
+
+
+
+    @* paymentModal*@
+
+   @* <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>*@
+    <div class="modal fade" id="PaymentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <section class="payment-section">
+                    @* <div class="container">*@
+                    <div class="payment-wrapper">
+                        <div class="payment-left">
+                            <div class="payment-header">
+                                <div class="payment-header-icon"><i class="ri-flashlight-fill"></i></div>
+                                <div class="payment-header-title">Order Summary</div>
+                                @*<p class="payment-header-description">Lorem ipsum dolor sit amet consectetur adipisicing.</p>*@
+                            </div>
+                            <div class="payment-content">
+                                <div class="payment-body">
+                                    <div class="payment-plan">
+                                        <div class="payment-plan-type">Pro</div>
+                                        <div class="payment-plan-info">
+                                            @* <div class="payment-plan-info-name">Payment Summary</div>*@
+                                            <div class="payment-plan-info-price">$49 per month</div>
+                                        </div>
+                                        <a href="#" class="payment-plan-change">Change</a>
+                                    </div>
+                                    <div class="payment-summary">
+                                        <div class="payment-summary-item">
+                                            <div class="payment-summary-name">Services: Spa Treatment</div>
+                                            <div class="payment-summary-price">1000</div>
+                                        </div>
+                                        <div class="payment-summary-item">
+                                            <div class="payment-summary-name">Additional fee</div>
+                                            <div class="payment-summary-price">$10</div>
+                                        </div>
+                                        <div class="payment-summary-item">
+                                            <div class="payment-summary-name">Discount 20%</div>
+                                            <div class="payment-summary-price">-$10</div>
+                                        </div>
+                                        <div class="payment-summary-divider"></div>
+                                        <div class="payment-summary-item payment-summary-total">
+                                            <div class="payment-summary-name">Total</div>
+                                            <div class="payment-summary-price">-$10</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="payment-right">
+                            <form action="" class="payment-form">
+                                <h1 class="payment-title">Payment Details</h1>
+                                <div class="payment-method">
+                                    <input type="radio" name="payment-method" id="method-1" checked>
+                                    <label for="method-1" class="payment-method-item">
+                                        <img src="~/Content/visa.png" />
+                                    </label>
+                                    <input type="radio" name="payment-method" id="method-2">
+                                    <label for="method-2" class="payment-method-item">
+                                        <img src="~/Content/mastercard.png" />
+                                    </label>
+                                    <input type="radio" name="payment-method" id="method-3">
+                                    <label for="method-3" class="payment-method-item">
+                                        <img src="~/Content/paypal.png" />
+                                    </label>
+                                    <input type="radio" name="payment-method" id="method-4">
+                                    <label for="method-4" class="payment-method-item">
+                                        <img src="~/Content/stripe.png" />
+                                    </label>
+                                </div>
+                                <div class="payment-form-group">
+                                    <input type="email" placeholder=" " class="payment-form-control" id="email">
+                                    <label for="email" class="payment-form-label payment-form-label-required">Email Address</label>
+                                </div>
+                                <div class="payment-form-group">
+                                    <input type="text" placeholder=" " class="payment-form-control" id="card-number">
+                                    <label for="card-number" class="payment-form-label payment-form-label-required">Card Number</label>
+                                </div>
+                                <div class="payment-form-group-flex">
+                                    <div class="payment-form-group">
+                                        <input type="date" placeholder=" " class="payment-form-control" id="expiry-date">
+                                        <label for="expiry-date" class="payment-form-label payment-form-label-required">Expiry Date</label>
+                                    </div>
+                                    <div class="payment-form-group">
+                                        <input type="text" placeholder=" " class="payment-form-control" id="cvv">
+                                        <label for="cvv" class="payment-form-label payment-form-label-required">CVV</label>
+                                    </div>
+                                </div>
+                                <button type="submit" class="payment-form-submit-button"><i class="ri-wallet-line"></i> Pay</button>
+                            </form>
+                        </div>
+                    </div>
+                    @*   </div>*@
+                </section>
+
+
+            </div>
+        </div>
+    </div>
+
+</main>
+
+
+
+
+

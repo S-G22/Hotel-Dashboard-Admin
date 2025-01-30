@@ -1,0 +1,71 @@
+﻿
+@{
+    ViewBag.Title = "AllRoom";
+    Layout = "~/Views/Shared/Master.cshtml";
+}
+
+<link href="~/Content/customer.css" rel="stylesheet" />
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+       
+        color: white;
+    }
+
+</style>
+
+
+    <main id="main" class="main" ng-controller="AllRoomController">
+
+        <h3 class="mt-2"><strong>Room List</strong></h3>
+       @* <div class="container">*@
+            <div class= "mt-4">
+                <div class=" position-relative">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr style="background-color: #50C4ED; ">
+                                <th>SlNo.</th>
+                                <th>Room Type</th>
+                                <th>Room Number</th>
+                                <th>Floor Number</th>
+                                <th>Room Capacity</th>
+                                @*<th>Status</th>*@
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr dir-paginate="x in allRoomList | itemsPerPage: pageSize" current-page="currentPage">
+                                <td>{{$index+1}}</td>
+                                <td>{{x.ROOMTYPE}}</td>
+                                <td>{{x.ROOMNUM}}</td>
+                                <td>{{x.FLOORNUM}}</td>
+                                <td>{{x.maxOCCUPANCY}}</td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                    <br />
+
+                    <dir-pagination-controls boundry-links="true" template-url="~/Scripts/DirPagination/dirPagination.tpl.html"></dir-pagination-controls>
+                </div>
+            </div>
+    </main>
+
+       
+
+
+
+
+
+
+
+

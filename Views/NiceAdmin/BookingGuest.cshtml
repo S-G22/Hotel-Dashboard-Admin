@@ -1,0 +1,298 @@
+﻿@*@model IPagedList<Search_MVC.BookingGuest>*@
+@{
+    ViewBag.Title = "BookingGuest";
+    Layout = "~/Views/Shared/Master.cshtml";
+}
+
+@*@using PagedList;
+    @using PagedList.Mvc;*@
+
+<link href="~/Content/customer.css" rel="stylesheet" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<main id="main" class="main" ng-controller="BookingGuestController">
+    <div class="card card-bordered">
+        <div class="card-inner ">
+            <div class="row gy-4">
+                <h5 class="text-center mb-4"><u><strong> Enter Booking Details  </strong></u></h5>
+                <form class="form-row col needs-validation" name="guestForm" id="bookingGuest" novalidate>
+
+                    <div class="row justify-content-between text-left">
+                        <div class="form-group col-sm-6 col-lg-6 col-md-6 flex-column d-flex">
+                            <label class="form-label px-3">Guest name<span class="text-danger"> *</span></label>
+                            <input class="form-control" type="text" id="GuestName" name="GuestName" placeholder="" ng-model="GuestName" required autofocus> @*"required autofocus" attribute combination in an input box is often used for form fields to ensure that the field is both required for submission and automatically focused when the page loads.*@
+                            <span ng-if="(guestForm.GuestName.$dirty || IsSubmitted) && guestForm.GuestName.$error.required" class="text-danger invalid-feedback">Name is Required</span>
+                        </div>
+                        @*  {{guestForm.GuestEmail.$error.required}}*@
+                        <div class="form-group col-sm-6 flex-column d-flex">
+                            <label class="form-label px-3">Email ID<span class="text-danger"> *</span></label>
+                            <input class="form-control" type="text" id="GuestEmail" name="GuestEmail" ng-pattern="emailId" placeholder="" ng-model="GuestEmail" required autofocus>
+                            <span ng-if="(guestForm.GuestEmail.$dirty || IsSubmitted) && guestForm.GuestEmail.$error.required" class="text-danger invalid-feedback">Email is Required</span>
+                            <span ng-show="guestForm.GuestEmail.$error.pattern" class="text-danger">Invalid Email ID</span>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-12 flex-column d-flex">
+                            <label class="form-label px-3">Address Detail<span class="text-danger"></span></label>
+                            <input class="" type="text" id="GuestAddress" name="GuestAddress" placeholder="" ng-model="GuestAddress">
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="row justify-content-between">
+                        <div class="form-group col-sm-6 flex-column d-flex">
+                            <label class="form-control-label px-3">Employee Code<span class="text-danger"> *</span></label>
+                            <input type="text" class="form-control mt-3" id="empCodee" name="empCodee" placeholder="" ng-model="empCodee" required autofocus>
+                            <span ng-if="(guestForm.empCodee.$dirty || IsSubmitted) && guestForm.empCodee.$error.required" class="text-danger invalid-feedback">Employee Code is required</span>
+                        </div>
+                        <div class="form-group col-sm-6 flex-column d-flex">
+                            <label class="form-label px-3">State<span class="text-danger"> *</span></label>
+                            <input class="form-control mt-2" type="text" id="GuestState" name="GuestState" placeholder="" ng-model="GuestState" required autofocus>
+                            <span ng-if="(guestForm.GuestState.$dirty || IsSubmitted) && guestForm.GuestState.$error.required" class="text-danger invalid-feedback">State is required</span>
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-between">
+                        <div class="form-group col-sm-6 flex-column d-flex">
+                            <label class="form-label px-3">Mobile Number<span class="text-danger"> *</span></label>
+                            <input class="form-control" type="text" maxlength="10" id="GuestMobile" name="guestMobile" ng-pattern="mobileNumberPattern" placeholder="" ng-model="GuestMobile" required autofocus>
+                            <span ng-if="(guestForm.guestMobile.$dirty || IsSubmitted) && guestForm.guestMobile.$error.required" class="text-danger invalid-feedback">Phone Number is Required</span>
+                            <span ng-show="guestForm.guestMobile.$error.pattern" class="text-danger">Mobile no is not valid</span>
+                        </div>
+
+                        <div class="form-group col-sm-6 flex-column d-flex">
+                            <label class="form-label px-3">Aadhaar<span class="text-danger"> *</span></label>
+                            <input class="form-control" type="text" maxlength="12" id="GuestAadhaar" name="GuestAadhaar" ng-pattern="aadhaarPattern" placeholder="" ng-model="GuestAadhaar" required autofocus>
+                            <span ng-if="(guestForm.GuestAadhaar.$dirty || IsSubmitted) && guestForm.GuestAadhaar.$error.required" class="text-danger invalid-feedback">Aadhaar Number is Required</span>
+                            <span ng-show="guestForm.GuestAadhaar.$error.pattern" class="text-danger">Invalid aadhaar number!</span>
+                        </div>
+
+
+                    </div>
+                    <div class="row justify-content-between align-items-center">
+                        <div class="form-group col-sm-5 flex-column d-flex">
+                            <label class="form-label px-3">Total Guest</label>
+                            <input class="" type="number" id="NumOfGuest" name="NumOfGuest" placeholder="" ng-model="NumOfGuest">
+                            <span></span>
+
+                        </div>
+                        <div class="form-group col-sm-5 flex-column d-flex">
+                            <label class="form-label px-3">Room No.<span class="text-danger"></span></label>
+                            <input class="" type="text" id="Roomid" name="Roomid" placeholder="" ng-change="onRoomChange()" ng-model="Roomid">
+                        </div>
+
+                        <div class="col-sm-2" style="margin-top: 28px;">
+                            <button type="button" class="btn btn-lg text-bg-danger-primary px-3 shadow-sm" style="background-color: #A7E6FF;" ng-show="NumOfGuest > 0" ng-click="addMultipleGuest()">Add Guest <i class="fa-solid fa-plus text-primary"></i></button>
+                        </div>
+
+                    </div>
+                    <br />
+
+                    <table class="table table-bordered table-responsive table-striped" ng-show="allMultiGuest.length > 0">
+                        <thead class="text-white">
+                            <tr class="table-bordered" style="background-color: #9DB2BF; ">
+                                <th scope="col">SlNo.</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Email Id</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">State</th>
+                                <th scope="col">Aadhaar No.</th>
+                                <th scope="col">Mobile No.</th>
+                                <th scope="col">Room No.</th>
+                                <th scope="col">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-light">
+                            <tr ng-repeat="x in allMultiGuest">
+                                <td>{{$index+1}}</td>
+                                <td>{{x.GuestName}}</td>
+                                <td>{{x.Email}}</td>
+                                <td>{{x.AddressDetail}}</td>
+                                <td>{{x.StateName}}</td>
+                                <td>{{x.AadhaarNumber}}</td>
+                                <td>{{x.MobileNumber}}</td>
+                                <td>{{x.RoomNum}}</td>
+                                <td>
+                                    <button type="button" class="btn btn-danger btn-sm border border-dark" ng-click="deleteMultiGuest(x)">Delete</button>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                    <div class="row d-flex justify-content-between">
+                        @*<div class="col-lg-3 d-flex">*@
+                        <div class="form-group d-flex justify-content-center">
+                            <button type="submit" class="btn-block btn btn-primary border border-dark btn-lg" ng-click="SUBMIT()">Add Booking</button>
+                        </div>
+                        @*</div>*@
+                    </div>
+
+                </form>
+            </div>
+
+
+        </div>
+    </div>
+
+
+    <!--<div class="table-responsive">
+
+        <table class="table table-bordered table-responsive table-striped">
+            <thead>
+                <tr class="table-dark">-->
+    @*style="background-color: #002d72;"*@
+    <!--<th scope="col">Booking ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Aadhaar</th>
+                    <th scope="col">Add/Delete</th>
+                </tr>
+
+            </thead>
+
+            <tbody class="table-light ">
+                <tr>
+                    <td><input class="border border-dark" type="number" placeholder="Enter id" ng-model="Id" /></td>
+                    <td><input class="border border-dark" type="text" placeholder="Enter name" ng-model="Name" /></td>
+                    <td><input class="border border-dark" type="number" placeholder="Enter age" ng-model="Age" /></td>
+                    <td><button type="button" class="btn btn-sm btn-primary" ng-click="add()">Add Guest</button></td>
+
+
+                </tr>
+                <tr ng-repeat="x in Prop">
+                    <td>{{x.bookingId}}</td>
+                    <td>{{x.name}}</td>
+                    <td>{{x.aadhaar}}</td>
+                    <td><button id="deletemodal" type="button" class="btn btn-sm btn-danger" ng-click="delete(x)">Delete Guest</button></td>
+                </tr>
+
+            </tbody>
+        </table>
+        <button type="button" style="float:right;" class="btn btn-outline-success" ng-click="Save_Prop()">Save</button>
+    </div>-->
+    @* <button type="button" class="btn-sm btn-info border border-dark" ng-click="Save_Prop()">Save</button>*@
+    <br /> <br />
+
+
+    <div class="table-responsive">
+
+        <table class="table table-success table-striped rounded table-bordered">
+            <thead>
+                <tr class="table-dark">
+                    <th scope="col">SlNo</th>
+                    <th scope="col">Booking Code</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Phone Number</th>
+                    <th scope="col">Room</th>
+                    <th scope="col">Services</th>
+                    <th scope="col">Edit Services</th>
+                    <th scope="col">Manage Booking</th>
+                </tr>
+
+            </thead>
+            <tbody class="table-light">
+                <tr dir-paginate="x in manageBook | itemsPerPage:pageSize" current-page="currentPage">
+                    <td>{{$index + 1}}</td>
+                    <td>{{x.BOOKINGCODE}}</td>
+                    <td>{{x.GUESTNAME}}</td>
+                    <td>{{x.MOBILENUM}}</td>
+                    <td>{{x.ROOMNUM}}</td>
+                    <td><button id="viewModal" type="button" class="btn btn-sm border border-dark" style="background-color: #C4E4FF; " ng-click="addService(x)"><i class="fa-solid fa-plus text-primary"></i></button></td>
+                    <td><button id="viewModal" type="button" class="btn btn-sm border border-dark" style="background-color: #50C4ED; " ng-click="EDITService(x.BOOKINGUESTID)"><i class="far fa-edit"></i></button></td>
+                    <td>
+                        <button id="viewModal" type="button" class="btn btn-sm border-0 btn-primary" style=" color:white;" ng-click="viewDetail(x.BOOKINGID)"><i class="bi bi-eye"></i></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        @*<p>manageBook = {{manageBook}}</p>*@
+        <br/>
+        <dir-pagination-controls boundry-links="true" template-url="~/Scripts/DirPagination/dirPagination.tpl.html"></dir-pagination-controls>
+
+    </div>
+
+    @*@Html.PagedListPager(Model,i=>Url.Action("BookingGuest", "BookingGuestController", new {i, search = Request.QueryString["search"] }))*@
+
+    <!-- updateModal -->
+    <div class="modal fade" id="MultipleGuestModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Update</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form name="additionalGuests" novalidate>
+                        <label>Guest Name :  </label><span class="text-danger"> *</span>
+                        <input type="text" name="newGuestName" class="form-control" ng-model="newGuestName" placeholder="" required autofocus />
+                        <span ng-if="(additionalGuests.newGuestName.$dirty || IsSubmittedAdditional) && additionalGuests.newGuestName.$error.required" class="text-danger d-block">Name is Required</span>
+                        <label>Email Id:</label>
+                        <input type="text" class="form-control" ng-model="newGuestEmail" placeholder="" />
+                        <label>Address : </label>
+                        <input type="text" class="form-control" ng-model="newGuestAddress" placeholder="" />
+                        <label> State : </label>
+                        <input type="text" class="form-control" ng-model="newGuestState" placeholder="" />
+                        <label>Aadhaar No. : </label><span class="text-danger"> *</span>
+                        <input type="number" name="newGuestAadhaar" class="form-control" ng-model="newGuestAadhaar" ng-pattern="aadhaarPattern" placeholder="" required autofocus />
+                        <span ng-if="(additionalGuests.newGuestAadhaar.$dirty || IsSubmittedAdditional) && additionalGuests.newGuestAadhaar.$error.required" class="text-danger d-block">Aadhaar Number is Required</span>
+                        <span ng-show="additionalGuests.newGuestAadhaar.$error.pattern" class="text-danger d-block">Invalid aadhaar number!</span>
+                        <label> Mobile : </label>
+                        <input type="number" class="form-control" ng-model="newGuestMobile" placeholder="" />
+                        <label> Room No. : </label><span class="text-danger"> *</span>
+                        <input type="number" class="form-control" ng-model="newRoomNo" placeholder="" />
+                        <span ng-if="(additionalGuests.newRoomNo.$dirty || IsSubmittedAdditional) && additionalGuests.newRoomNo.$error.required" class="text-danger d-block">Room Number is Required</span>
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" ng-click="addAdditionalGuests()">Add</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    @* add services modal*@
+    <div class="modal fade" id="addServices" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add Services</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <label> Booking Code :  </label>
+                    <input type="text" class="form-control" ng-model="addBgId" placeholder="" readonly />
+                    @*<input type="text" class="form-control" ng-model="updatedDescription" placeholder="Select Guest" />*@
+                    <label>Guest Name :</label>
+                    <select class="form-control" ng-model="addGuestName" ng-options="s.GUESTID as s.NAME for s in AllGuestList">
+                        <option value="">Select</option>
+                    </select>
+                    <!--<label>Services : </label>-->
+                    @*<input type="number" class="form-control" ng-model="updatedPrices" placeholder="Select Services" />*@
+                    <label>Service Name :</label>
+                    <select class="form-control" ng-model="updatedServiceID" ng-change="serviceChange()" ng-options="s.SERVICEID as s.SERVICENAME for s in AllServices">
+                        <option value="">Select</option>
+                    </select>
+                    <label>Quantity : </label>
+                    <input type="number" class="form-control" ng-change="calquantity()" ng-model="qtService" placeholder="Enter Quantity" />
+                    <label>Amount : </label>
+                    <input type="number" class="form-control" ng-model="serviceAmount" placeholder="" readonly />
+                    <label>Total Service Amount : </label>
+                    <input type="number" class="form-control" ng-model="totalServiceAmount" placeholder="" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" ng-click="add()">Add</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+

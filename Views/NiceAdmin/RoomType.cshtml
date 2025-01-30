@@ -1,0 +1,123 @@
+﻿
+@{
+    ViewBag.Title = "RoomType";
+    Layout = "~/Views/Shared/Master.cshtml";
+}
+
+
+<link href="~/Content/customer.css" rel="stylesheet" />
+<main id="main" class="main" ng-controller="RoomTypeController">
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="text-center"><strong><u>Enter Room Type Detail</u></strong></h5>
+                <form class="form-row col" name="form">
+                    <br />
+
+                    <div class="row justify-content-between text-left">
+                        <div class="form-group col-sm-6 col-lg-12 col-md-6 flex-column d-flex">
+                            <label class="form-label px-1">Room Type Name</label>
+                            <input class="form-control" type="text" id="name" name="roomName" ng-model="roomTypeName">
+                        </div>
+                        <div class="form-group col-sm-6 col-lg-6 col-md-6">
+                            <label class="form-label px-1">Price</label>
+                            <input class="form-control" type="number" id="price" name="roomPrice" ng-model="roomPrice">
+                        </div>
+                        <div class="form-group col-sm-6 col-lg-6 col-md-6">
+                            <label class="form-label px-1">Maximum Occupancy</label>
+                            <input class="form-control" type="number" id="maxOcc" name="maxOccupancy" ng-model="roomMaxOccupancy">
+                        </div>
+                        <div class="form-group col-sm-6 col-lg-12 col-md-6">
+                            <label class="form-label px-1">Description</label>
+                            <input class="form-control" type="text" id="desc" name="description" ng-model="roomDescription">
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row justify-content-end">
+                        <div class="form-group col-sm-12">
+                            <button type="submit" class="btn-block btn btn-info border border-primary" ng-click="Submit()">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+
+        <table class="table table-bordered table-responsive table-striped">
+
+            <thead>
+                <tr class="table-dark">
+                    <th scope="col">SlNo.</th>
+                    <th scope="col">Room Type</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Maximum Occupancy</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+
+            <tbody class="table-light">
+                <tr ng-repeat="x in AllRoomTypeList">
+                    <td>{{$index+1}}</td>
+                    <td>{{x.ROOMTYPENAME}}</td>
+                    <td>{{x.PRICE}}</td>
+                    <td>{{x.MAXOCCUPANCY}}</td>
+                    <td>{{x.DESCRIPTIONS}}</td>
+                    <td><button type="button" class="btn btn-sm btn-primary" ng-click="Edit(x)"><i class="bi bi-pencil-square"></i></button></td>
+                    <td><button type="button" class="btn btn-sm btn-danger" ng-click="delete(x)"><i class="bi bi-trash"></i></button></td>
+                </tr>
+            </tbody>
+
+        </table>
+    </div>
+
+
+
+    <!-- updateModal -->
+    <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Update</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <label> Room Type Name :  </label>
+                    <input type="text" class="form-control" ng-model="updatedRoomTypeName" placeholder="" />
+                    <label>Price :</label>
+                    <input type="text" class="form-control" ng-model="updatedPrice" placeholder="" />
+                    <label> Max Occupancy : </label>
+                    <input type="number" class="form-control" ng-model="updatedMaxOccupancy" placeholder="" />
+                    <label> Description : </label>
+                    <input type="text" class="form-control" ng-model="updatedDescription" placeholder="" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal" ng-click="Update()">Update</button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    @*DeleteModal*@
+    <div class="modal" id="deleteModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p>Are u sure u want to delete this record?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal" ng-click="Delete()">Delete</button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
