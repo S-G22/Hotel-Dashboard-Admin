@@ -71,10 +71,5 @@ namespace Hotel_Project.Controllers.API
             }
         }
 
-
-
-
-
-
     }
 }

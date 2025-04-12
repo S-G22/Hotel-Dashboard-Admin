@@ -1,5 +1,8 @@
 ﻿hotelMod.service('SiteService', function ($http) {
 
+    this.getDashboardStats = function () {
+        return $http.get('/api/Index/GetDashboardStats');
+    };
 
     //Login
     this.systemLogin = function (obj) {
@@ -25,7 +28,6 @@
    /* this.signOut = function () {
         return $http.get("/api/Login/Logout") ;
     }*/
-
 
 
 

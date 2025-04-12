@@ -188,6 +188,7 @@
     <Compile Include="Controllers\API\BookingGuestController.cs" />
     <Compile Include="Controllers\API\CustomerController.cs" />
     <Compile Include="Controllers\API\EmployeeController.cs" />
+    <Compile Include="Controllers\API\IndexController.cs" />
     <Compile Include="Controllers\API\LogINController.cs" />
     <Compile Include="Controllers\API\ManageBookingController.cs" />
     <Compile Include="Controllers\API\RoomTypeController.cs" />
@@ -286,6 +287,7 @@
     <Content Include="Angular\Service.js" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\assets\css\style.css" />
+    <Content Include="Content\assets\img\Animation - 1744484493857.gif" />
     <Content Include="Content\assets\img\apple-touch-icon.png" />
     <Content Include="Content\assets\img\BG %282%29.jpg" />
     <Content Include="Content\assets\img\bg.jpg" />
